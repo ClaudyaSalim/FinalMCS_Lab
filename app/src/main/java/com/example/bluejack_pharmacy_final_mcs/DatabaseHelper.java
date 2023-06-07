@@ -9,12 +9,12 @@ import androidx.annotation.Nullable;
 public class DatabaseHelper extends SQLiteOpenHelper {
     
     public DatabaseHelper(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, name, factory, version);
+        super(context, "Bluejack", null, 1);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-
+        String table;
     }
 
     @Override
