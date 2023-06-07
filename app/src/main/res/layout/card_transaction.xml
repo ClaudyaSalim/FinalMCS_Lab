@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="320dp"
+    android:layout_height="wrap_content"
+    android:id="@+id/transaction_card"
+    android:layout_marginHorizontal="25dp"
+    android:layout_marginVertical="40dp"
+    app:cardElevation="20dp"
+    app:cardCornerRadius="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/transaction_card_layout"
+        android:padding="30dp"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/subheading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Transaction Date"
+            android:layout_marginBottom="16dp"
+            android:id="@+id/transaction_date_tv" />
+
+        <TextView
+            style="@style/heading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Medicine Name"
+            android:layout_marginBottom="16dp"
+            android:id="@+id/medic_name_tv"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Price"
+            android:layout_marginBottom="16dp"
+            android:id="@+id/medic_price_tv"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/quantity">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Quantity: "
+                android:id="@+id/quantity_tv"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:id="@+id/num_quantity_tv"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="16dp">
+
+            <Button
+                style="@style/secondary_button"
+                android:id="@+id/update_btn"
+                android:layout_width="wrap_content"
+                android:text="Update"
+                android:layout_marginRight="64dp"/>
+
+            <Button
+                style="@style/buttons"
+                android:backgroundTint="@color/red"
+                android:id="@+id/delete_btn"
+                android:layout_width="wrap_content"
+                android:text="Delete" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</androidx.cardview.widget.CardView>

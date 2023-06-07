@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="64dp"
+    android:orientation="vertical"
+    android:gravity="center"
+    tools:context=".AboutActivity">
+
+    <TextView
+        style="@style/heading"
+        android:id="@+id/about_us"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="About Us"
+        android:layout_marginBottom="16dp"/>
+
+    <TextView
+        android:id="@+id/about_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Bluejack Pharmacy is a phamarcy based in Jakarta
+which sells different kind of medicines. Our mission is to
+aid people who are in need and provide efficiency to buy
+medicines. For more information, please visit our store
+at Kemanggisan, West Jakarta."
+        android:layout_marginBottom="16dp"/>
+
+<!--    <fragment-->
+<!--        android:id="@+id/gmaps"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="400dp"-->
+<!--        android:name="com.google.android.gms.maps.SupportMapFragment"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/about_text"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        />-->
+
+    <Button
+        style="@style/buttons"
+        android:layout_width="match_parent"
+        android:layout_marginTop="16dp"
+        android:text="Back to Home"
+        android:id="@+id/home_btn"/>
+
+</LinearLayout>

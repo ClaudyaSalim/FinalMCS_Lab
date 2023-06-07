@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".UpdateTransactionActivity"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:paddingHorizontal="64dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:text="Date of Transaction"
+            android:id="@+id/t_date"/>
+
+        <TextView
+            style="@style/heading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Name of Medicine"
+            android:layout_marginBottom="16dp"
+            android:id="@+id/medic_name"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Price"
+            android:layout_marginBottom="16dp"
+            android:id="@+id/medic_price"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                style="@style/subheading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Quantity: "
+                android:layout_marginBottom="16dp"
+                android:id="@+id/qty_medic_tv"/>
+
+            <EditText
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:textAlignment="center"
+                android:hint="0"
+                android:id="@+id/qty_medic_et"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="36dp">
+
+        <Button
+            style="@style/secondary_button"
+            android:id="@+id/cancel_btn"
+            android:layout_width="wrap_content"
+            android:text="Cancel"
+            android:layout_marginRight="64dp"/>
+
+        <Button
+            style="@style/buttons"
+            android:id="@+id/update_btn"
+            android:layout_width="wrap_content"
+            android:text="Update" />
+
+    </LinearLayout>
+
+</LinearLayout>
