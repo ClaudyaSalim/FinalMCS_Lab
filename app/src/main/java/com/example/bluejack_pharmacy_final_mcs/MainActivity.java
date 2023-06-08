@@ -3,18 +3,28 @@ package com.example.bluejack_pharmacy_final_mcs;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.bluejack_pharmacy_final_mcs.database.UserHelper;
+import com.example.bluejack_pharmacy_final_mcs.model.User;
+
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
 
     EditText emailField, passField;
     Button loginBtn, navRegisBtn;
+    UserHelper userHelper = new UserHelper(this);
+    ArrayList<User> users;
+    User currUser;
+    SharedPreferences sharedPreferences;
 //    User currUser;
 //    UserDatabase dbUser;
-    boolean verified = false;
+//    boolean verified = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         loginBtn = findViewById(R.id.login_btn);
         navRegisBtn = findViewById(R.id.nav_regis_btn);
 
+        // dump codingan
 //        if(!getIntent().hasExtra("User Database")){
 //            dbUser = new UserDatabase();
 //
@@ -35,17 +46,29 @@ public class MainActivity extends AppCompatActivity {
 //        }
 
         loginBtn.setOnClickListener(e-> {
-//            dbUser.printUsers();
             String email = emailField.getText().toString();
             String pass = passField.getText().toString();
-//            if (!validate(email, pass) && !verified) {
-//                return;
-//            }
+            if (!validate(email, pass)) {
+                return;
+            }
+
+            // shared preferences
+            sharedPreferences = getSharedPreferences("User", MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putInt("UserID", currUser.getId());
+            editor.apply();
+
             Toast.makeText(this, "You're logged in!", Toast.LENGTH_SHORT).show();
+
+            // intent ke OTP + cek verified
             Intent toHome = new Intent(this, HomeActivity.class);
+            startActivity(toHome);
+
+            // codingan kemaren
+//            Intent toHome = new Intent(this, HomeActivity.class);
 //            toHome.putExtra("User Database", dbUser);
 //            toHome.putExtra("Logged User", currUser);
-            startActivity(toHome);
+//            startActivity(toHome);
         });
 
         navRegisBtn.setOnClickListener(e-> {
@@ -56,17 +79,22 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-//    public boolean validate(String email, String pass){
-//        if(email.equals("") || pass.equals("")){
-//            Toast.makeText(this, "All field must be filled!", Toast.LENGTH_SHORT).show();
-//            return false;
-//        } else if (dbUser.verify(email, pass)==null) { // kalau email salah / password salah
-//            Toast.makeText(this, "User not found!", Toast.LENGTH_SHORT).show();
-//            return false;
-//        }
-//        // cara bikin verified
-//        verified = true;
-//        currUser = dbUser.verify(email, pass);
-//        return true;
-//    }
+    public boolean validate(String email, String pass){
+        if(email.equals("") || pass.equals("")){
+            Toast.makeText(this, "All field must be filled!", Toast.LENGTH_SHORT).show();
+            return false;
+        } else {
+            users = userHelper.getAllUsers();
+            for (User user:users) {
+                if(email.equals(user.getEmail())){
+                    if(pass.equals(user.getPass())){
+                        currUser = user;
+                        return true;
+                    }
+                }
+            }
+        }
+        Toast.makeText(this, "Invalid email or password!", Toast.LENGTH_SHORT).show();
+        return false;
+    }
 }

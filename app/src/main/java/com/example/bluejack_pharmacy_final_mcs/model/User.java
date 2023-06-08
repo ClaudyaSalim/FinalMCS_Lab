@@ -6,8 +6,7 @@ public class User {
     private String name, email, phone, pass;
     private boolean isVerified;
 
-    public User(int id, String name, String email, String phone, String pass, boolean isVerified) {
-        this.id = id;
+    public User(String name, String email, String phone, String pass, boolean isVerified) {
         this.name = name;
         this.email = email;
         this.phone = phone;
