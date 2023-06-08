@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import android.content.Intent;
 
 public class otp extends AppCompatActivity {
     private EditText[] otpEditText;
@@ -38,6 +39,9 @@ public class otp extends AppCompatActivity {
                     showToast("Invalid OTP code");
                 } else {
                     showToast("OTP verification successful");
+                    Intent intent = new Intent(otp.this, HomeActivity.class);
+                    startActivity(intent);
+                    finish();
                 }
             }
         });
