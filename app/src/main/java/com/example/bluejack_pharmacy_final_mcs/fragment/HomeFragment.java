@@ -1,5 +1,6 @@
 package com.example.bluejack_pharmacy_final_mcs.fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -18,10 +19,12 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.bluejack_pharmacy_final_mcs.AboutActivity;
 import com.example.bluejack_pharmacy_final_mcs.R;
 import com.example.bluejack_pharmacy_final_mcs.adapter.MedicAdapter;
+import com.example.bluejack_pharmacy_final_mcs.database.MedicinesHelper;
 import com.example.bluejack_pharmacy_final_mcs.model.Medic;
 
 import org.json.JSONArray;
@@ -34,10 +37,12 @@ public class HomeFragment extends Fragment {
 
 //    private User user;
     ImageView aboutIm;
+    TextView loadingMsg;
     View homeView;
     RecyclerView medicRv;
     MedicAdapter medicAdapter;
     ArrayList<Medic> medics;
+    MedicinesHelper medicinesHelper;
 //    MedicDatabase dbMedic;
 
     public HomeFragment() {
@@ -66,6 +71,8 @@ public class HomeFragment extends Fragment {
 
         homeView = inflater.inflate(R.layout.fragment_home, container, false);
 
+        medicinesHelper = new MedicinesHelper(this.getContext());
+
         // about
         TextView cekName = homeView.findViewById(R.id.cek_name);
         cekName.setText("Tap on logo to see about us");
@@ -73,74 +80,85 @@ public class HomeFragment extends Fragment {
         aboutIm = homeView.findViewById(R.id.about_im);
         aboutIm.setOnClickListener(e->{
             Intent toAbout = new Intent(this.getContext(), AboutActivity.class);
-//            toAbout.putExtra("Logged User", user);
             startActivity(toAbout);
         });
 
-        // dump codingan
-//        dbMedic = new MedicDatabase();
-//        dbMedic.addMedic();
+        loadingMsg = homeView.findViewById(R.id.loading_msg);
 
-        // json medicines
         medics = new ArrayList<>();
-        setValues();
-        // tambah ke database kalau masing kosong
+        medics = medicinesHelper.getAllMedics();
 
-        medicRv = homeView.findViewById(R.id.medic_rv);
-        medicAdapter = new MedicAdapter(this.getContext(), medics);
-        medicRv.setAdapter(medicAdapter);
-        medicRv.setLayoutManager(new GridLayoutManager(this.getContext(), 2));
+        // json ditambah ke database kalau masih kosong
+        if(medics.size()==0){
+            setValues(homeView, this.getContext());
+        }
+        else {
+            setMedicRv(homeView, this.getContext());
+        }
 
         return homeView;
     }
 
-    private void setValues(){
+
+    private void setValues(View homeView, Context context){
         // send request ke API
         RequestQueue requestQueue = Volley.newRequestQueue(this.getContext());
         String url = "https://mocki.io/v1/ae13b04b-13df-4023-88a5-7346d5d3c7eb";
-        JsonArrayRequest request = new JsonArrayRequest(url,
-
-                new Response.Listener<JSONArray>() {
+        Log.e("API", "Before request");
+        JsonObjectRequest request = new JsonObjectRequest(url,
+                new Response.Listener<JSONObject>() {
                     @Override
-                    public void onResponse(JSONArray res) {
-                        Log.e("ASD", String.valueOf(res==null));
-                        for(int i = 0; i < res.length(); i++){
-                            // Parse
-                            try{
-                                JSONObject jsonObject = res.getJSONObject(i);
+                    public void onResponse(JSONObject response) {
+                        Log.e("ASD", "JSON Object is not error");
+                        try {
+                            JSONArray medicArray = response.getJSONArray("medicines");
+                            for (int i = 0; i < medicArray.length(); i++) {
+                                JSONObject medicJson = medicArray.getJSONObject(i);
 
-//                                String name, manufacturer, image, desc;
-//                                int price;
-//
-                                JSONObject medicJson = jsonObject.getJSONObject("medicines");
-//                                name = jsonObject.getString("name");
-//                                manufacturer= jsonObject.getString("manufacturer");
-//                                price = jsonObject.getInt("price");
-//                                image = jsonObject.getString("image");
-//                                desc = jsonObject.getString("description");
+                                String name, manufacturer, image, desc;
+                                int price;
+                                name = medicJson.getString("name");
+                                manufacturer= medicJson.getString("manufacturer");
+                                price = medicJson.getInt("price");
+                                image = medicJson.getString("image");
+                                desc = medicJson.getString("description");
 
-//                                Medic medic = new Medic(name, manufacturer, price, image, desc);
-//                                medics.add(medic);
-
-                            } catch (JSONException e) {
-                                Log.e("ASD", "onResponse: Parse Error");
+                                Medic medic = new Medic(name, manufacturer, price, image, desc);
+                                medicinesHelper.insertMedicine(medic);
+                                medics.add(medic);
                             }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Log.e("Error", "onResponse: parsing");
                         }
-                        // dump codingan
+
+                        // cek jsonnya dah dapet belom
                         for (Medic medic:medics) {
-                            Log.i("ASD", medic.getName());
+                            Log.i("Medics", medic.getName());
                         }
+
+                        // set recycler view, btw gw harus nunggu 20 detik buat muncul gara" dia tergantung sinyal
+                        setMedicRv(homeView, context);
                     }
                 },
-
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        error.printStackTrace();
-                        Log.e("ASD", "Error while fetching data");
+                        Log.e("ASD", "JSON Object is Error");
                     }
                 }
         );
         requestQueue.add(request);
+        Log.e("API", "After request");
+    }
+
+
+    public void setMedicRv(View homeView, Context context){
+        loadingMsg.setText("");
+        medicRv = homeView.findViewById(R.id.medic_rv);
+        medicAdapter = new MedicAdapter(context, medics);
+        medicRv.setAdapter(medicAdapter);
+        medicRv.setLayoutManager(new GridLayoutManager(context, 2));
     }
 }

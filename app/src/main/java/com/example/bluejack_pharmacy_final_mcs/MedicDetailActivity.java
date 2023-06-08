@@ -50,7 +50,7 @@ public class MedicDetailActivity extends AppCompatActivity {
         medicNameTv.setText(medic.getName());
         medicManufacturerTv.setText(medic.getManufacturer());
         medicPriceTv.setText("Rp" + medic.getPrice());
-        medicDescTv.setText(medic.getDesc());
+        medicDescTv.setText(medic.getDescription());
 
         // bikin database transaction buat dapetin input qty
         insertBtn.setOnClickListener(e->{

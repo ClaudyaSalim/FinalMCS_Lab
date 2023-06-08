@@ -7,41 +7,57 @@ import android.database.sqlite.SQLiteOpenHelper;
 import androidx.annotation.Nullable;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
+
+    private static final String DATABASE_NAME = "BluejackPharmacyDB";
+    private static final int DATABASE_VERSION = 1;
     
     public DatabaseHelper(Context context) {
-        super(context, "Bluejack", null, 1);
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String queryUser = "CREATE TABLE Users" + "(" +
-                "userID INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "name varchar(50), " +
-                "email varchar(50), " +
-                "password varchar(20), " +
-                "phone varchar(20), " +
-                "isVerified varchar(10))";
-
-        String queryMedic = "CREATE TABLE Medicines" + "(" +
-                "medicineID INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "name varchar(50), " +
-                "manufacturer varchar(50), " +
-                "price integer, " +
-                "image varchar(50), " +
-                "description varchar(255))";
-
-        db.execSQL(queryUser);
-        db.execSQL(queryMedic);
+        createTableUsers(db);
+        createTableMedicines(db);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        String queryUser = "DROP TABLE Users";
-        db.execSQL(queryUser);
-
-        String queryMedicines = "DROP TABLE Medicines";
-        db.execSQL(queryMedicines);
+        dropTableUsers(db);
+        dropTableMedicines(db);
 
         onCreate(db);
+    }
+
+    private void createTableUsers(SQLiteDatabase db) {
+        String query = "CREATE TABLE Users" + "(" +
+                "userID INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "name TEXT, " +
+                "email TEXT, " +
+                "password TEXT, " +
+                "phone TEXT, " +
+                "isVerified TEXT)";
+        db.execSQL(query);
+    }
+
+    private void createTableMedicines(SQLiteDatabase db) {
+        String query = "CREATE TABLE Medicines (" +
+                "medicineID INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "name TEXT, " +
+                "manufacturer TEXT, " +
+                "price INTEGER, " +
+                "image TEXT, " +
+                "description TEXT)";
+        db.execSQL(query);
+    }
+
+    private void dropTableUsers(SQLiteDatabase db) {
+        String query = "DROP TABLE IF EXISTS Users";
+        db.execSQL(query);
+    }
+
+    private void dropTableMedicines(SQLiteDatabase db) {
+        String query = "DROP TABLE IF EXISTS Medicines";
+        db.execSQL(query);
     }
 }
