@@ -73,8 +73,8 @@ public class RegisterActivity extends AppCompatActivity {
             // intent ke otp
 //            Intent toHome = new Intent(this, HomeActivity.class);
 //            startActivity(toHome);
-            Intent intent = new Intent(RegisterActivity.this, otp.class);
-            startActivity(intent);
+//            Intent intent = new Intent(this, otp.class);
+//            startActivity(intent);
             finish();
 
             // codingan kemaren

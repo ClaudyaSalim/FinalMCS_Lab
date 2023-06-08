@@ -61,12 +61,12 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "You're logged in!", Toast.LENGTH_SHORT).show();
 
             // intent ke OTP + cek verified
-//            Intent toHome = new Intent(this, HomeActivity.class);
-//            startActivity(toHome);
+            Intent toHome = new Intent(this, HomeActivity.class);
+            startActivity(toHome);
 
-            Intent intent = new Intent(MainActivity.this, otp.class);
-            startActivity(intent);
-            finish();
+//            Intent intent = new Intent(this, otp.class);
+//            startActivity(intent);
+//            finish();
 
             // codingan kemaren
 //            Intent toHome = new Intent(this, HomeActivity.class);

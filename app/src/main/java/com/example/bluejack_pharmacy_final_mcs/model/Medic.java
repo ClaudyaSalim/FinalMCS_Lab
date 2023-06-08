@@ -5,16 +5,15 @@ import java.io.Serializable;
 public class Medic implements Serializable {
 
     private int id, price;
-    private String name, manufacture, image, desc;
+    private String name, manufacturer, image, description;
 
 
-    public Medic(int id, String name, String manufacture, int price, String image, String desc) {
-        this.id = id;
+    public Medic(String name, String manufacturer, int price, String image, String description) {
         this.image = image;
         this.name = name;
-        this.manufacture = manufacture;
+        this.manufacturer = manufacturer;
         this.price = price;
-        this.desc = desc;
+        this.description = description;
     }
 
     public int getId() {
@@ -41,12 +40,12 @@ public class Medic implements Serializable {
         this.name = name;
     }
 
-    public String getManufacture() {
-        return manufacture;
+    public String getManufacturer() {
+        return manufacturer;
     }
 
-    public void setManufacture(String manufacture) {
-        this.manufacture = manufacture;
+    public void setManufacturer(String manufacturer) {
+        this.manufacturer = manufacturer;
     }
 
     public int getPrice() {
@@ -57,12 +56,12 @@ public class Medic implements Serializable {
         this.price = price;
     }
 
-    public String getDesc() {
-        return desc;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
 
