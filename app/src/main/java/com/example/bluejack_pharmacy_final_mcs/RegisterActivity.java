@@ -3,10 +3,15 @@ package com.example.bluejack_pharmacy_final_mcs;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.example.bluejack_pharmacy_final_mcs.database.UserHelper;
+import com.example.bluejack_pharmacy_final_mcs.model.User;
 
 import java.util.ArrayList;
 
@@ -14,6 +19,9 @@ public class RegisterActivity extends AppCompatActivity {
 
     EditText nameField, emailField, phoneField, passField, confirmPassField;
     Button registerBtn, navLoginBtn;
+    UserHelper userHelper = new UserHelper(this);
+    ArrayList<User>users;
+    SharedPreferences sharedPreferences;
 //    UserDatabase dbUser;
 
     @Override
@@ -30,6 +38,7 @@ public class RegisterActivity extends AppCompatActivity {
         navLoginBtn = findViewById(R.id.nav_login_btn);
 
 //        dbUser = (UserDatabase) getIntent().getSerializableExtra("User Database");
+        users = userHelper.getAllUsers();
 
         registerBtn.setOnClickListener(e->{
 
@@ -40,23 +49,46 @@ public class RegisterActivity extends AppCompatActivity {
             String confirmPass = confirmPassField.getText().toString();
 //            ArrayList<Transaction> transactionList = new ArrayList<>();
 
-//            if(!validate(name, email, phone, pass, confirmPass)){
-//                return;
-//            }
+            if(!validate(name, email, phone, pass, confirmPass)){
+                return;
+            }
+
+            for (User user: users) {
+                if(email.equals(user.getEmail())){
+                    Toast.makeText(this, "Email is already taken!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+            }
+
+            User user = new User(name, email, phone, pass, false);
+            userHelper.regisUser(user);
+            Toast.makeText(this, "You have been registered!", Toast.LENGTH_SHORT).show();
+
+            // shared preferences
+            sharedPreferences = getSharedPreferences("User", MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putInt("UserID", user.getId());
+            editor.apply();
+
+            // intent ke otp
+//            Intent toHome = new Intent(this, HomeActivity.class);
+//            startActivity(toHome);
+
+            // codingan kemaren
 //            int usersAmount = dbUser.getUsersList().size();
 //            User newUser = new User(usersAmount+1, name, email, phone, pass, transactionList);
 //            dbUser.getUsersList().add(newUser);
 //            dbUser.printUsers();
 
-            Toast.makeText(this, "You're registered!", Toast.LENGTH_SHORT).show();
-//            intent ke otp
 //            Intent toHome = new Intent(this, HomeActivity.class);
 //            startActivity(toHome);
         });
 
         navLoginBtn.setOnClickListener(e->{
+            // buat liat user yg udah register di console
+            printAll();
+            // ke login
             Intent toLogin = new Intent(this, MainActivity.class);
-//            toLogin.putExtra("User Database", dbUser);
             startActivity(toLogin);
         });
     }
@@ -82,5 +114,17 @@ public class RegisterActivity extends AppCompatActivity {
             return false;
         }
         return true;
+    }
+
+    public void printAll(){
+        users = userHelper.getAllUsers();
+        for (User user: users) {
+            Log.e("User", String.valueOf(user.getId()));
+            Log.e("User", user.getName());
+            Log.e("User", user.getEmail());
+            Log.e("User", user.getPhone());
+            Log.e("User", user.getPass());
+            Log.e("User", String.valueOf(user.isVerified()));
+        }
     }
 }
