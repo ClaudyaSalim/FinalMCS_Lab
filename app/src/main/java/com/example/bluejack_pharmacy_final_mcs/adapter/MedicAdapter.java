@@ -52,7 +52,7 @@ public class MedicAdapter extends RecyclerView.Adapter<MedicAdapter.ViewHolder> 
         holder.medicIm.setImageDrawable(Drawable.createFromPath(medicList.get(position).getImage()));
 //        holder.medicIm.setImageResource(medicList.get(position).getImage());
         holder.nameMedicTv.setText(medicList.get(position).getName());
-        holder.manufactureMedicTv.setText(medicList.get(position).getManufacture());
+        holder.manufactureMedicTv.setText(medicList.get(position).getManufacturer());
         holder.priceMedicTv.setText("Rp" + String.valueOf(medicList.get(position).getPrice()));
     }
 

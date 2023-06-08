@@ -7,16 +7,26 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.bluejack_pharmacy_final_mcs.AboutActivity;
 import com.example.bluejack_pharmacy_final_mcs.R;
 import com.example.bluejack_pharmacy_final_mcs.adapter.MedicAdapter;
 import com.example.bluejack_pharmacy_final_mcs.model.Medic;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -27,6 +37,7 @@ public class HomeFragment extends Fragment {
     View homeView;
     RecyclerView medicRv;
     MedicAdapter medicAdapter;
+    ArrayList<Medic> medics;
 //    MedicDatabase dbMedic;
 
     public HomeFragment() {
@@ -55,6 +66,7 @@ public class HomeFragment extends Fragment {
 
         homeView = inflater.inflate(R.layout.fragment_home, container, false);
 
+        // about
         TextView cekName = homeView.findViewById(R.id.cek_name);
         cekName.setText("Tap on logo to see about us");
 
@@ -65,20 +77,14 @@ public class HomeFragment extends Fragment {
             startActivity(toAbout);
         });
 
+        // dump codingan
 //        dbMedic = new MedicDatabase();
 //        dbMedic.addMedic();
 
-        ArrayList<Medic> medics = new ArrayList<>();
-        medics.add(new Medic(1, "Flowflex COVID-19 Antigen Home Test - 1.0 ea",
-                "Flowflex", 100000,
-                "https://cdn11.bigcommerce.com/s-fe8s4uj/images/stencil/960w/products/63584/132595/8260766026__76719.1667473645.jpg?c=2",
-                "The Flowflex™ COVID-19 Antigen Home Test is all you need to determine your family’s Covid-19 status, whether symptoms are present or not. Can be used on children as young as 2 years old. Get the convenience of Flowflex! -Easy and Affordable -Highly Accurate Nasal Swab Test -Quick Results in 15 minutes -Safe for children as young as 2 years old -For use with and without symptoms -No need to send off to a lab to obtain results -Compact packaging for “On-The-Go” testing")
-        );
-        medics.add(new Medic(1, "Swan Iodine Tincture First Aid Antiseptic - 1 oz",
-                "SWAN", 40000,
-                "https://cdn11.bigcommerce.com/s-fe8s4uj/images/stencil/960w/products/63584/132595/8260766026__76719.1667473645.jpg?c=2",
-                "Clean the affected area. Apply a small amount on the area 1 to 3 times daily. May be covered with a sterile bandage. If bandaged let dry first. Product will stain skin and clothing.")
-        );
+        // json medicines
+        medics = new ArrayList<>();
+        setValues();
+        // tambah ke database kalau masing kosong
 
         medicRv = homeView.findViewById(R.id.medic_rv);
         medicAdapter = new MedicAdapter(this.getContext(), medics);
@@ -86,5 +92,55 @@ public class HomeFragment extends Fragment {
         medicRv.setLayoutManager(new GridLayoutManager(this.getContext(), 2));
 
         return homeView;
+    }
+
+    private void setValues(){
+        // send request ke API
+        RequestQueue requestQueue = Volley.newRequestQueue(this.getContext());
+        String url = "https://mocki.io/v1/ae13b04b-13df-4023-88a5-7346d5d3c7eb";
+        JsonArrayRequest request = new JsonArrayRequest(url,
+
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray res) {
+                        Log.e("ASD", String.valueOf(res==null));
+                        for(int i = 0; i < res.length(); i++){
+                            // Parse
+                            try{
+                                JSONObject jsonObject = res.getJSONObject(i);
+
+//                                String name, manufacturer, image, desc;
+//                                int price;
+//
+                                JSONObject medicJson = jsonObject.getJSONObject("medicines");
+//                                name = jsonObject.getString("name");
+//                                manufacturer= jsonObject.getString("manufacturer");
+//                                price = jsonObject.getInt("price");
+//                                image = jsonObject.getString("image");
+//                                desc = jsonObject.getString("description");
+
+//                                Medic medic = new Medic(name, manufacturer, price, image, desc);
+//                                medics.add(medic);
+
+                            } catch (JSONException e) {
+                                Log.e("ASD", "onResponse: Parse Error");
+                            }
+                        }
+                        // dump codingan
+                        for (Medic medic:medics) {
+                            Log.i("ASD", medic.getName());
+                        }
+                    }
+                },
+
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        error.printStackTrace();
+                        Log.e("ASD", "Error while fetching data");
+                    }
+                }
+        );
+        requestQueue.add(request);
     }
 }

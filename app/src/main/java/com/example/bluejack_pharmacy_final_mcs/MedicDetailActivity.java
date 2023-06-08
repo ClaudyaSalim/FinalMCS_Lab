@@ -48,7 +48,7 @@ public class MedicDetailActivity extends AppCompatActivity {
 
         medicImg.setImageDrawable(Drawable.createFromPath(medic.getImage()));
         medicNameTv.setText(medic.getName());
-        medicManufacturerTv.setText(medic.getManufacture());
+        medicManufacturerTv.setText(medic.getManufacturer());
         medicPriceTv.setText("Rp" + medic.getPrice());
         medicDescTv.setText(medic.getDesc());
 
