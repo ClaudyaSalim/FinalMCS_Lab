@@ -61,7 +61,7 @@ public class TransactionFragment extends Fragment {
         ArrayList<Transaction>transactions = new ArrayList<>();
         LocalDate today = LocalDate.now();
         Date date = Date.valueOf(today.toString());
-        transactions.add(new Transaction(1, 1, 1, 15, date));
+        transactions.add(new Transaction(1, 1, 15, date));
         tAdapter = new TransactionAdapter(this.getContext(), transactions);
         transactionRv.setAdapter(tAdapter);
         transactionRv.setLayoutManager(new LinearLayoutManager(this.getContext()));

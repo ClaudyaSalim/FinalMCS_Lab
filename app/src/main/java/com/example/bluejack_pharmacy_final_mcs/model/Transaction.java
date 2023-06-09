@@ -1,15 +1,14 @@
 package com.example.bluejack_pharmacy_final_mcs.model;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 
 public class Transaction {
 
     private int id, mId, uId, qty;
     private Date date;
 
-    public Transaction(int id, int mId, int uId, int qty, Date date) {
-        this.id = id;
+    public Transaction(int mId, int uId, int qty, Date date) {
         this.mId = mId;
         this.uId = uId;
         this.qty = qty;

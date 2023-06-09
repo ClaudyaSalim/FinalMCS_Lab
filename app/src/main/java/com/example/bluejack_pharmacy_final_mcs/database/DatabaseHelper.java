@@ -19,12 +19,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         createTableUsers(db);
         createTableMedicines(db);
+//        createTableTransactions(db);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         dropTableUsers(db);
         dropTableMedicines(db);
+//        dropTableTransactions(db);
 
         onCreate(db);
     }
@@ -51,6 +53,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(query);
     }
 
+    private void createTableTransactions(SQLiteDatabase db) {
+        String query = "CREATE TABLE Transactions (" +
+                "transactionID INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "medicineID INTEGER, " +
+                "userID INTEGER, " +
+                "transactionDate DATE, " +
+                "quantity INTEGER, " +
+                "FOREIGN KEY(medicineID) REFERENCES Medicines(medicineID), " +
+                "FOREIGN KEY(userID) REFERENCES Users (userID))";
+        db.execSQL(query);
+    }
+
     private void dropTableUsers(SQLiteDatabase db) {
         String query = "DROP TABLE IF EXISTS Users";
         db.execSQL(query);
@@ -58,6 +72,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private void dropTableMedicines(SQLiteDatabase db) {
         String query = "DROP TABLE IF EXISTS Medicines";
+        db.execSQL(query);
+    }
+
+    private void dropTableTransactions(SQLiteDatabase db) {
+        String query = "DROP TABLE IF EXISTS Transactions";
         db.execSQL(query);
     }
 }
