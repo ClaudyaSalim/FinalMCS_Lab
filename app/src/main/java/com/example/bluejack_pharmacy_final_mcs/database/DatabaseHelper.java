@@ -19,6 +19,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         createTableUsers(db);
         createTableMedicines(db);
+
+//        dropTableTransactions(db);
+        String query = "CREATE TABLE Transactions (" +
+                "transactionID INTEGER PRIMARY KEY, " +
+                "medicineID INTEGER, " +
+                "userID INTEGER, " +
+                "transactionDate DATE, " +
+                "quantity INTEGER, " +
+                "FOREIGN KEY(medicineID) REFERENCES Medicines(medicineID), " +
+                "FOREIGN KEY(userID) REFERENCES Users (userID))";
+
+        db.execSQL(query);
+
 //        createTableTransactions(db);
     }
 
@@ -26,14 +39,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         dropTableUsers(db);
         dropTableMedicines(db);
-//        dropTableTransactions(db);
+        dropTableTransactions(db);
 
         onCreate(db);
     }
 
     private void createTableUsers(SQLiteDatabase db) {
         String query = "CREATE TABLE Users" + "(" +
-                "userID INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "userID INTEGER PRIMARY KEY, " +
                 "name TEXT, " +
                 "email TEXT, " +
                 "password TEXT, " +
@@ -44,7 +57,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private void createTableMedicines(SQLiteDatabase db) {
         String query = "CREATE TABLE Medicines (" +
-                "medicineID INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "medicineID INTEGER PRIMARY KEY, " +
                 "name TEXT, " +
                 "manufacturer TEXT, " +
                 "price INTEGER, " +
@@ -55,7 +68,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private void createTableTransactions(SQLiteDatabase db) {
         String query = "CREATE TABLE Transactions (" +
-                "transactionID INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "tID INTEGER PRIMARY KEY, " +
                 "medicineID INTEGER, " +
                 "userID INTEGER, " +
                 "transactionDate DATE, " +

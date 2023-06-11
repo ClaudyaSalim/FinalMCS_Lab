@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -16,6 +17,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.bluejack_pharmacy_final_mcs.HomeActivity;
 import com.example.bluejack_pharmacy_final_mcs.R;
 import com.example.bluejack_pharmacy_final_mcs.UpdateTransactionActivity;
+import com.example.bluejack_pharmacy_final_mcs.database.MedicinesHelper;
+import com.example.bluejack_pharmacy_final_mcs.database.TransactionsHelper;
+import com.example.bluejack_pharmacy_final_mcs.model.Medic;
 import com.example.bluejack_pharmacy_final_mcs.model.Transaction;
 
 import java.util.ArrayList;
@@ -24,7 +28,8 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
 
     Context context;
     ArrayList<Transaction> tList;
-//    User user;
+    MedicinesHelper medicinesHelper;
+    TransactionsHelper transactionsHelper;
 
     public TransactionAdapter(Context context, ArrayList<Transaction> tList) {
         this.context = context;
@@ -40,10 +45,14 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull TransactionAdapter.ViewHolder holder, int position) {
-        holder.date.setText(tList.get(position).getDate().toString());
-//        holder.medicName.setText(tList.get(position).getmId());
-//        holder.medicPrice.setText("Rp" + String.valueOf(tList.get(position).getmId()));
-        holder.qtyNum.setText(String.valueOf(tList.get(position).getQty()));
+        int medicineId = tList.get(position).getMedicineId();
+        Transaction transaction = tList.get(position);
+        medicinesHelper = new MedicinesHelper(context);
+        Medic medic = medicinesHelper.getMedicByID(medicineId);
+        holder.date.setText(transaction.getDate());
+        holder.medicName.setText(medic.getName());
+        holder.medicPrice.setText("Rp" + medic.getPrice()*transaction.getQty());
+        holder.qtyNum.setText(String.valueOf(transaction.getQty()));
     }
 
     @Override
@@ -78,11 +87,16 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
 
             updateBtn.setOnClickListener(e->{
                 Intent toUpdateT = new Intent(context, UpdateTransactionActivity.class);
+                toUpdateT.putExtra("TransactionID", tList.get(getAdapterPosition()).getId());
+                toUpdateT.putExtra("MedicineID", tList.get(getAdapterPosition()).getMedicineId());
                 context.startActivity(toUpdateT);
             });
 
             deleteBtn.setOnClickListener(e->{
-                tList.remove(getAdapterPosition());
+                // panggil helper buat delete transaksi
+                transactionsHelper = new TransactionsHelper(context);
+                transactionsHelper.deleteTransaction(tList.get(getAdapterPosition()));
+                Toast.makeText(context, "Transaction has been deleted", Toast.LENGTH_SHORT).show();
                 Intent toHome = new Intent(context, HomeActivity.class);
                 context.startActivity(toHome);
             });

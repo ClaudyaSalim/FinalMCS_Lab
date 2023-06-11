@@ -5,12 +5,12 @@ import java.util.Date;
 
 public class Transaction {
 
-    private int id, mId, uId, qty;
-    private Date date;
+    private int id, medicineId, userId, qty;
+    private String date;
 
-    public Transaction(int mId, int uId, int qty, Date date) {
-        this.mId = mId;
-        this.uId = uId;
+    public Transaction(int medicineId, int userId, int qty, String date) {
+        this.medicineId = medicineId;
+        this.userId = userId;
         this.qty = qty;
         this.date = date;
     }
@@ -23,20 +23,20 @@ public class Transaction {
         this.id = id;
     }
 
-    public int getmId() {
-        return mId;
+    public int getMedicineId() {
+        return medicineId;
     }
 
-    public void setmId(int mId) {
-        this.mId = mId;
+    public void setmedicineId(int medicineId) {
+        this.medicineId = medicineId;
     }
 
-    public int getuId() {
-        return uId;
+    public int getuserId() {
+        return userId;
     }
 
-    public void setuId(int uId) {
-        this.uId = uId;
+    public void setuserId(int userId) {
+        this.userId = userId;
     }
 
     public int getQty() {
@@ -47,11 +47,11 @@ public class Transaction {
         this.qty = qty;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 }

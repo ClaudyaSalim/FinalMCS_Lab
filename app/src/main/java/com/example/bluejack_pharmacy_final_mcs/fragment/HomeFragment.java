@@ -131,7 +131,7 @@ public class HomeFragment extends Fragment {
 
                                 Medic medic = new Medic(name, manufacturer, price, image, desc);
                                 medicinesHelper.insertMedicine(medic);
-                                medics.add(medic);
+//                                medics.add(medic);
                             }
 
                         } catch (JSONException e) {
@@ -140,11 +140,12 @@ public class HomeFragment extends Fragment {
                         }
 
                         // cek jsonnya dah dapet belom
-                        for (Medic medic:medics) {
-                            Log.i("Medics", medic.getName());
-                        }
+//                        for (Medic medic:medics) {
+//                            Log.i("Medics", medic.getName());
+//                        }
 
                         // set recycler view, btw gw harus nunggu 20 detik buat muncul gara" dia tergantung sinyal
+                        medics = medicinesHelper.getAllMedics();
                         setMedicRv(homeView, context);
                     }
 

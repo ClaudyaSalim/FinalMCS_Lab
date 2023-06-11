@@ -14,13 +14,13 @@ public class PagerAdapter extends FragmentPagerAdapter {
     private Fragment homeFragment, transactionFragment;
 
     private Fragment[] fragments;
-    private String[] titles = {"Home", "Transaction"};
+    private final String[] titles = {"Home", "Transaction"};
 
     public PagerAdapter(@NonNull FragmentManager fm) { super(fm); }
 
-    public void passUser(){
+    public void passUser(int userId){
         homeFragment = HomeFragment.newInstance();
-        transactionFragment = TransactionFragment.newInstance();
+        transactionFragment = TransactionFragment.newInstance(userId);
         fragments = new Fragment[]{homeFragment, transactionFragment};
     }
 

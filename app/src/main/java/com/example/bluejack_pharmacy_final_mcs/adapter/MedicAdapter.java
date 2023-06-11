@@ -53,7 +53,7 @@ public class MedicAdapter extends RecyclerView.Adapter<MedicAdapter.ViewHolder> 
 //        holder.medicIm.setImageResource(medicList.get(position).getImage());
         holder.nameMedicTv.setText(medicList.get(position).getName());
         holder.manufactureMedicTv.setText(medicList.get(position).getManufacturer());
-        holder.priceMedicTv.setText("Rp" + String.valueOf(medicList.get(position).getPrice()));
+        holder.priceMedicTv.setText("Rp" + medicList.get(position).getPrice());
     }
 
     @Override
@@ -81,7 +81,7 @@ public class MedicAdapter extends RecyclerView.Adapter<MedicAdapter.ViewHolder> 
             medicCard.setOnClickListener(e-> {
                 Intent toDetail = new Intent(context, MedicDetailActivity.class);
 //                toDetail.putExtra("User", user);
-                toDetail.putExtra("Medicine", medicList.get(getAdapterPosition()));
+                toDetail.putExtra("MedicineID", medicList.get(getAdapterPosition()).getId());
                 context.startActivity(toDetail);
             });
         }

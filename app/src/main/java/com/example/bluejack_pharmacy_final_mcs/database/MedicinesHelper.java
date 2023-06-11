@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.example.bluejack_pharmacy_final_mcs.model.Medic;
 import com.example.bluejack_pharmacy_final_mcs.model.User;
@@ -63,6 +64,29 @@ public class MedicinesHelper {
 
         db.insert("Medicines", null, values);
         close();
+    }
+
+    public Medic getMedicByID(int id){
+        open();
+
+        String query = "SELECT * FROM Medicines WHERE medicineID=?";
+        String[]whereParam = {String.valueOf(id)};
+        Cursor cursor = db.rawQuery(query, whereParam);
+
+        if(cursor!=null){
+            cursor.moveToFirst();
+        }
+
+        String name = cursor.getString(1);
+        String manufacturer = cursor.getString(2);
+        int price = cursor.getInt(3);
+        String image = cursor.getString(4);
+        String description = cursor.getString(5);
+        Medic medic = new Medic(name, manufacturer, price, image, description);
+        medic.setId(id);
+
+        close();
+        return medic;
     }
 
     public int getMedicCount(){

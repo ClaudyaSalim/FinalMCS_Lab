@@ -24,7 +24,6 @@ public class HomeActivity extends AppCompatActivity {
     UserHelper userHelper = new UserHelper(this);
     int userId;
     User user;
-    DatabaseHelper dbHelper = new DatabaseHelper(this);
     ViewPager vpHome;
     PagerAdapter pagerAdapter;
     TabLayout topNav;
@@ -45,7 +44,7 @@ public class HomeActivity extends AppCompatActivity {
         usernameTv.setText("Hello " + user.getName() + " !");
 
         pagerAdapter = new PagerAdapter(getSupportFragmentManager());
-        pagerAdapter.passUser();
+        pagerAdapter.passUser(userId);
 
         vpHome = findViewById(R.id.vp_home);
         vpHome.setAdapter(pagerAdapter);

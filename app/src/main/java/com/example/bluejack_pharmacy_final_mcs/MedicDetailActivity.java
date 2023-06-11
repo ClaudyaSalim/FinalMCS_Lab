@@ -3,6 +3,7 @@ package com.example.bluejack_pharmacy_final_mcs;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,6 +13,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.bluejack_pharmacy_final_mcs.database.MedicinesHelper;
+import com.example.bluejack_pharmacy_final_mcs.database.TransactionsHelper;
 import com.example.bluejack_pharmacy_final_mcs.model.Medic;
 import com.example.bluejack_pharmacy_final_mcs.model.Transaction;
 
@@ -20,6 +23,7 @@ import java.io.InputStream;
 import java.net.URL;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class MedicDetailActivity extends AppCompatActivity {
 
@@ -27,7 +31,11 @@ public class MedicDetailActivity extends AppCompatActivity {
     TextView medicNameTv, medicManufacturerTv, medicPriceTv, medicDescTv, medicQtyTv;
     EditText medicQtyEt;
     Button insertBtn;
+    SharedPreferences sharedPreferences;
+    int userId, medicId;
     Medic medic;
+    MedicinesHelper medicinesHelper = new MedicinesHelper(this);
+    TransactionsHelper transactionsHelper = new TransactionsHelper(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +51,10 @@ public class MedicDetailActivity extends AppCompatActivity {
         medicQtyEt = findViewById(R.id.qty_medic_et);
         insertBtn = findViewById(R.id.insert_btn);
 
-        medic = (Medic) getIntent().getSerializableExtra("Medicine");
+        sharedPreferences = getSharedPreferences("User", MODE_PRIVATE);
+        userId = sharedPreferences.getInt("UserID", 0);
+        medicId = getIntent().getIntExtra("MedicineID", 0);
+        medic = medicinesHelper.getMedicByID(medicId);
 //        user = (User) getIntent().getSerializableExtra("User");
 
         medicImg.setImageDrawable(Drawable.createFromPath(medic.getImage()));
@@ -66,14 +77,15 @@ public class MedicDetailActivity extends AppCompatActivity {
             }
             int qty = Integer.parseInt(qtyMedic);
             LocalDate today = LocalDate.now();
-            Date date = Date.valueOf(today.toString());
+//            Date date = Date.valueOf(today.toString());
+            String date = today.toString();
 //            Transaction newTransaction = new Transaction(1, 1, 1, 15, date);
 //            user.getUsertransactions().add(newTransaction);
+            transactionsHelper.insertTransaction(new Transaction(medicId, userId, qty, date));
             Toast.makeText(this, "Transaction has been made!", Toast.LENGTH_SHORT).show();
             Intent toHome = new Intent(this, HomeActivity.class);
 //            toHome.putExtra("Logged User", user);
             startActivity(toHome);
-            // masukin ke database transaction
         });
 
     }
