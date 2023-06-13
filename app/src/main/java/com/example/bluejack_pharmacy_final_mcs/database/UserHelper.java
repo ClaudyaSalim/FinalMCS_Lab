@@ -4,9 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-
 import com.example.bluejack_pharmacy_final_mcs.model.User;
-
 import java.util.ArrayList;
 
 public class UserHelper {
@@ -51,9 +49,7 @@ public class UserHelper {
         return userList;
     }
 
-//    public void getUserByLogin(String email, String pass){
-//
-//    }
+//    public void getUserByLogin(String email, String pass){}
 
     public User getUserByID(int id){
         open();

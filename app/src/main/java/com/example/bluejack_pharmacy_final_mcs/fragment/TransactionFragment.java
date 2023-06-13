@@ -2,24 +2,20 @@ package com.example.bluejack_pharmacy_final_mcs.fragment;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
-
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import com.example.bluejack_pharmacy_final_mcs.R;
 import com.example.bluejack_pharmacy_final_mcs.adapter.TransactionAdapter;
 import com.example.bluejack_pharmacy_final_mcs.database.TransactionsHelper;
 import com.example.bluejack_pharmacy_final_mcs.database.UserHelper;
 import com.example.bluejack_pharmacy_final_mcs.model.Transaction;
 import com.example.bluejack_pharmacy_final_mcs.model.User;
-
 import java.sql.Date;
 import java.text.ParseException;
 import java.time.LocalDate;
@@ -54,7 +50,6 @@ public class TransactionFragment extends Fragment {
             userId = getArguments().getInt("UserID");
         }
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

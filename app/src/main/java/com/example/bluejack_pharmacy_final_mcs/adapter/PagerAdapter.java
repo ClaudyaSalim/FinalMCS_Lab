@@ -5,7 +5,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
-
 import com.example.bluejack_pharmacy_final_mcs.fragment.HomeFragment;
 import com.example.bluejack_pharmacy_final_mcs.fragment.TransactionFragment;
 

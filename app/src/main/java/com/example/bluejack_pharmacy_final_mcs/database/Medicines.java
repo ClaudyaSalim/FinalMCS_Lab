@@ -4,10 +4,8 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-
 import androidx.annotation.Nullable;
 
-// ver buat detail obatnya gw udah bikin di folder model -> medic wkwkwk, kalo yg ini gw apus gpp?
 public class Medicines {
     private int medicineID;
     private String name;
