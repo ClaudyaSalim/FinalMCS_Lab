@@ -3,14 +3,12 @@ package com.example.bluejack_pharmacy_final_mcs;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
-
 import com.example.bluejack_pharmacy_final_mcs.adapter.PagerAdapter;
 import com.example.bluejack_pharmacy_final_mcs.database.DatabaseHelper;
 import com.example.bluejack_pharmacy_final_mcs.database.UserHelper;
@@ -52,7 +50,6 @@ public class HomeActivity extends AppCompatActivity {
         topNav = findViewById(R.id.top_nav);
         topNav.setupWithViewPager(vpHome);
     }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_logout, menu);
@@ -69,7 +66,6 @@ public class HomeActivity extends AppCompatActivity {
 //            toLogin.putExtra("User Database", dbUser);
             startActivity(toLogin);
         }
-
         return super.onOptionsItemSelected(item);
     }
 

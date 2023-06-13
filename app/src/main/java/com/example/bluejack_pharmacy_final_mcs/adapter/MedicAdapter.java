@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.bluejack_pharmacy_final_mcs.MedicDetailActivity;
 import com.example.bluejack_pharmacy_final_mcs.model.Medic;
 import com.example.bluejack_pharmacy_final_mcs.R;
+import com.example.bluejack_pharmacy_final_mcs.model.User;
 
 import java.util.ArrayList;
 
@@ -24,12 +25,12 @@ public class MedicAdapter extends RecyclerView.Adapter<MedicAdapter.ViewHolder> 
     //    HomeFragment home;
     Context context;
     ArrayList<Medic> medicList;
-//    User user;
+    User user;
 
     public MedicAdapter(Context context, ArrayList<Medic> medicList) {
         this.context = context;
         this.medicList = medicList;
-//        this.user = user;
+        this.user = user;
     }
 
     @NonNull

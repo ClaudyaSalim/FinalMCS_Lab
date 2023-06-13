@@ -8,19 +8,16 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
-
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -33,11 +30,9 @@ import com.example.bluejack_pharmacy_final_mcs.adapter.MedicAdapter;
 //import com.example.bluejack_pharmacy_final_mcs.database.MedicinesHelper;
 import com.example.bluejack_pharmacy_final_mcs.database.MedicinesHelper;
 import com.example.bluejack_pharmacy_final_mcs.model.Medic;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 
 public class HomeFragment extends Fragment {
@@ -55,7 +50,6 @@ public class HomeFragment extends Fragment {
     public HomeFragment() {
 
     }
-
     public static HomeFragment newInstance() {
         HomeFragment fragment = new HomeFragment();
         Bundle args = new Bundle();
@@ -63,7 +57,6 @@ public class HomeFragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,7 +64,6 @@ public class HomeFragment extends Fragment {
 //            user = (User) getArguments().getSerializable("Logged User");
         }
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -105,7 +97,6 @@ public class HomeFragment extends Fragment {
 
         return homeView;
     }
-
 
     private void setValues(View homeView, Context context){
         // send request ke API
@@ -160,8 +151,6 @@ public class HomeFragment extends Fragment {
         requestQueue.add(request);
 //        Log.e("API", "After request");
     }
-
-
     public void setMedicRv(View homeView, Context context){
         loadingMsg.setText("");
         medicRv = homeView.findViewById(R.id.medic_rv);

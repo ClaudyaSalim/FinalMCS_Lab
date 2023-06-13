@@ -1,7 +1,6 @@
 package com.example.bluejack_pharmacy_final_mcs;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -46,7 +45,6 @@ public class otp extends AppCompatActivity {
             }
         });
     }
-
     private String getEnteredOTP(){
         StringBuilder otpBuilder = new StringBuilder();
         for (EditText editText : otpEditText){
@@ -54,7 +52,6 @@ public class otp extends AppCompatActivity {
         }
         return otpBuilder.toString();
     }
-
     private void showToast(String message){
         switch (message){
             case "empty_otp":
