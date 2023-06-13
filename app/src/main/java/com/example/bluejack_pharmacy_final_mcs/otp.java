@@ -1,6 +1,12 @@
 package com.example.bluejack_pharmacy_final_mcs;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -10,6 +16,7 @@ import android.content.Intent;
 
 public class otp extends AppCompatActivity {
     private EditText[] otpEditText;
+    private static final int SMS_PERMISSION_REQUEST_CODE = 1;
     private Button verifyButton;
 
     @Override
@@ -36,6 +43,10 @@ public class otp extends AppCompatActivity {
                     showToast("Please enter the OTP code");
                 } else if (!enteredOTP.equals(generatedOTP)) {
                     showToast("Invalid OTP code");
+                    //intent ke home
+                    Intent intent = new Intent(otp.this, HomeActivity.class);
+                    startActivity(intent);
+                    finish();
                 } else {
                     showToast("OTP verification successful");
                     Intent intent = new Intent(otp.this, HomeActivity.class);
@@ -44,7 +55,33 @@ public class otp extends AppCompatActivity {
                 }
             }
         });
+
+        // SMS
+        requestSMSPermission();
     }
+    // Method untuk meminta izin mengirim SMS
+    private void requestSMSPermission() {
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.SEND_SMS)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.SEND_SMS},
+                    SMS_PERMISSION_REQUEST_CODE);
+        }
+    }
+
+    // Callback yang dipanggil setelah pengguna memberikan atau menolak izin
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == SMS_PERMISSION_REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Izin diberikan, Anda dapat mengirim SMS
+            } else {
+                // Izin ditolak, Anda tidak dapat mengirim SMS
+                Toast.makeText(this, "SMS permission denied", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
     private String getEnteredOTP(){
         StringBuilder otpBuilder = new StringBuilder();
         for (EditText editText : otpEditText){
@@ -67,4 +104,5 @@ public class otp extends AppCompatActivity {
                 Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show();
         }
     }
+
 }
