@@ -17,6 +17,7 @@ public class RegisterActivity extends AppCompatActivity {
     Button registerBtn, navLoginBtn;
     UserHelper userHelper = new UserHelper(this);
     ArrayList<User>users;
+    int totalUsers;
     SharedPreferences sharedPreferences;
 //    UserDatabase dbUser;
 
@@ -35,6 +36,7 @@ public class RegisterActivity extends AppCompatActivity {
 
 //        dbUser = (UserDatabase) getIntent().getSerializableExtra("User Database");
         users = userHelper.getAllUsers();
+        totalUsers = users.size();
 
         registerBtn.setOnClickListener(e->{
 
@@ -58,6 +60,7 @@ public class RegisterActivity extends AppCompatActivity {
 
             User user = new User(name, email, phone, pass, false);
             userHelper.regisUser(user);
+            user.setId(totalUsers+1);
             Toast.makeText(this, "You have been registered!", Toast.LENGTH_SHORT).show();
 
             // shared preferences

@@ -118,9 +118,11 @@ public class HomeFragment extends Fragment {
                                 manufacturer= medicJson.getString("manufacturer");
                                 price = medicJson.getInt("price");
                                 image = medicJson.getString("image");
+                                Log.e("Image link parse form JSON", image); // ga error
                                 desc = medicJson.getString("description");
 
                                 Medic medic = new Medic(name, manufacturer, price, image, desc);
+                                Log.e("Image link saved in medic", medic.getImage()); // ga error
                                 medicinesHelper.insertMedicine(medic);
 //                                medics.add(medic);
                             }
@@ -132,7 +134,8 @@ public class HomeFragment extends Fragment {
 
                         // cek jsonnya dah dapet belom
 //                        for (Medic medic:medics) {
-//                            Log.i("Medics", medic.getName());
+//                            Log.i("Medics Name", medic.getName());
+//                            Log.i("Medics Image", medic.getImage());
 //                        }
 
                         // set recycler view, btw gw harus nunggu 20 detik buat muncul gara" dia tergantung sinyal

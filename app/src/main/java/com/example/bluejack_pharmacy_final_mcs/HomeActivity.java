@@ -6,6 +6,7 @@ import androidx.viewpager.widget.ViewPager;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -37,6 +38,7 @@ public class HomeActivity extends AppCompatActivity {
 
         sharedPreferences = getSharedPreferences("User", MODE_PRIVATE);
         userId = sharedPreferences.getInt("UserID", 0);
+        Log.e("User ID at home", String.valueOf(userId));
         user = userHelper.getUserByID(userId);
         usernameTv = findViewById(R.id.username_tv);
         usernameTv.setText("Hello " + user.getName() + " !");
@@ -65,6 +67,7 @@ public class HomeActivity extends AppCompatActivity {
             Intent toLogin = new Intent(this, MainActivity.class);
 //            toLogin.putExtra("User Database", dbUser);
             startActivity(toLogin);
+            finish();
         }
         return super.onOptionsItemSelected(item);
     }

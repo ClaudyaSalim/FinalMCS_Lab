@@ -42,6 +42,7 @@ public class MedicinesHelper {
                 int price = cursor.getInt(3);
                 String image = cursor.getString(4);
                 String desc = cursor.getString(5);
+//                Log.e("Medic image", image);
                 Medic medic = new Medic(name, manufacturer, price, image ,desc);
                 medic.setId(id);
                 medicList.add(medic);
@@ -58,6 +59,7 @@ public class MedicinesHelper {
         values.put("name", medicine.getName());
         values.put("manufacturer", medicine.getManufacturer());
         values.put("price", medicine.getPrice());
+        values.put("image", medicine.getImage());
         values.put("description", medicine.getDescription());
 
         db.insert("Medicines", null, values);

@@ -17,6 +17,7 @@ import com.example.bluejack_pharmacy_final_mcs.MedicDetailActivity;
 import com.example.bluejack_pharmacy_final_mcs.model.Medic;
 import com.example.bluejack_pharmacy_final_mcs.R;
 import com.example.bluejack_pharmacy_final_mcs.model.User;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -50,8 +51,9 @@ public class MedicAdapter extends RecyclerView.Adapter<MedicAdapter.ViewHolder> 
 //            throw new RuntimeException(e);
 //        }
 //        Drawable medicPhoto = Drawable.createFromStream(is, "Medicine");
-        holder.medicIm.setImageDrawable(Drawable.createFromPath(medicList.get(position).getImage()));
+//        holder.medicIm.setImageDrawable(Drawable.createFromPath(medicList.get(position).getImage()));
 //        holder.medicIm.setImageResource(medicList.get(position).getImage());
+        Picasso.get().load(medicList.get(position).getImage()).into(holder.medicIm);
         holder.nameMedicTv.setText(medicList.get(position).getName());
         holder.manufactureMedicTv.setText(medicList.get(position).getManufacturer());
         holder.priceMedicTv.setText("Rp" + medicList.get(position).getPrice());

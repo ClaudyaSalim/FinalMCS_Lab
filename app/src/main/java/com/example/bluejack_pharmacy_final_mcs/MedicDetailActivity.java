@@ -15,6 +15,8 @@ import com.example.bluejack_pharmacy_final_mcs.database.MedicinesHelper;
 import com.example.bluejack_pharmacy_final_mcs.database.TransactionsHelper;
 import com.example.bluejack_pharmacy_final_mcs.model.Medic;
 import com.example.bluejack_pharmacy_final_mcs.model.Transaction;
+import com.squareup.picasso.Picasso;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -52,7 +54,9 @@ public class MedicDetailActivity extends AppCompatActivity {
         medic = medicinesHelper.getMedicByID(medicId);
 //        user = (User) getIntent().getSerializableExtra("User");
 
-        medicImg.setImageDrawable(Drawable.createFromPath(medic.getImage()));
+//        medicImg.setImageDrawable(Drawable.createFromPath(medic.getImage()));
+        Picasso.get().load(medic.getImage()).into(medicImg);
+        Log.e("Medic image link", medic.getImage());
         medicNameTv.setText(medic.getName());
         medicManufacturerTv.setText(medic.getManufacturer());
         medicPriceTv.setText("Rp" + medic.getPrice());
