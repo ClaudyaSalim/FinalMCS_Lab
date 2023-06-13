@@ -69,18 +69,10 @@ public class RegisterActivity extends AppCompatActivity {
             // intent ke otp
             Intent toHome = new Intent(this, HomeActivity.class);
             startActivity(toHome);
-            Intent intent = new Intent(this, otp.class);
-            startActivity(intent);
+            // dicomment dulu soalnya OTP belum bisa
+//            Intent intent = new Intent(this, otp.class);
+//            startActivity(intent);
             finish();
-
-            // codingan kemaren
-//            int usersAmount = dbUser.getUsersList().size();
-//            User newUser = new User(usersAmount+1, name, email, phone, pass, transactionList);
-//            dbUser.getUsersList().add(newUser);
-//            dbUser.printUsers();
-
-//            Intent toHome = new Intent(this, HomeActivity.class);
-//            startActivity(toHome);
         });
 
         navLoginBtn.setOnClickListener(e->{

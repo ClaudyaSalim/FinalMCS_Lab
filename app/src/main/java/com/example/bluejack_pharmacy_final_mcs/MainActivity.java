@@ -64,8 +64,9 @@ public class MainActivity extends AppCompatActivity {
             Intent toHome = new Intent(this, HomeActivity.class);
             startActivity(toHome);
 
-            Intent intent = new Intent(this, otp.class);
-            startActivity(intent);
+            // di comment dulu soalnya OTP belum bisa
+//            Intent intent = new Intent(this, otp.class);
+//            startActivity(intent);
             finish();
 
             // codingan kemaren

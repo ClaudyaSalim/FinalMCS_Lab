@@ -2,6 +2,8 @@ package com.example.bluejack_pharmacy_final_mcs;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
@@ -17,14 +19,11 @@ public class AboutActivity extends AppCompatActivity {
 
     Button homeBtn;
     private GoogleMap map;
-    User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
-
-        user = (User) getIntent().getSerializableExtra("Logged User");
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.gmaps);
         mapFragment.getMapAsync(new OnMapReadyCallback() {
@@ -38,7 +37,6 @@ public class AboutActivity extends AppCompatActivity {
         homeBtn = findViewById(R.id.home_btn);
         homeBtn.setOnClickListener(e->{
             Intent toHome = new Intent(this, HomeActivity.class);
-//            toHome.putExtra("Logged User", user);
             startActivity(toHome);
         });
 
