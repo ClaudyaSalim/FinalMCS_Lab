@@ -1,7 +1,6 @@
 package com.example.bluejack_pharmacy_final_mcs;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -9,14 +8,11 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import com.example.bluejack_pharmacy_final_mcs.database.UserHelper;
 import com.example.bluejack_pharmacy_final_mcs.model.User;
-
 import java.util.ArrayList;
 
 public class RegisterActivity extends AppCompatActivity {
-
     EditText nameField, emailField, phoneField, passField, confirmPassField;
     Button registerBtn, navLoginBtn;
     UserHelper userHelper = new UserHelper(this);
@@ -71,10 +67,10 @@ public class RegisterActivity extends AppCompatActivity {
             editor.apply();
 
             // intent ke otp
-//            Intent toHome = new Intent(this, HomeActivity.class);
-//            startActivity(toHome);
-//            Intent intent = new Intent(this, otp.class);
-//            startActivity(intent);
+            Intent toHome = new Intent(this, HomeActivity.class);
+            startActivity(toHome);
+            Intent intent = new Intent(this, otp.class);
+            startActivity(intent);
             finish();
 
             // codingan kemaren

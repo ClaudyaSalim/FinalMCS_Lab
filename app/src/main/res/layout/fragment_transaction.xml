@@ -30,7 +30,5 @@
                 android:layout_gravity="center_horizontal"/>
 
         </ScrollView>
-
     </LinearLayout>
-
 </FrameLayout>

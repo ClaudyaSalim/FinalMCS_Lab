@@ -64,9 +64,9 @@ public class MainActivity extends AppCompatActivity {
             Intent toHome = new Intent(this, HomeActivity.class);
             startActivity(toHome);
 
-//            Intent intent = new Intent(this, otp.class);
-//            startActivity(intent);
-//            finish();
+            Intent intent = new Intent(this, otp.class);
+            startActivity(intent);
+            finish();
 
             // codingan kemaren
 //            Intent toHome = new Intent(this, HomeActivity.class);
@@ -82,7 +82,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
-
     public boolean validate(String email, String pass){
         if(email.equals("") || pass.equals("")){
             Toast.makeText(this, "All field must be filled!", Toast.LENGTH_SHORT).show();

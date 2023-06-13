@@ -1,7 +1,6 @@
 package com.example.bluejack_pharmacy_final_mcs;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
@@ -12,12 +11,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.bluejack_pharmacy_final_mcs.database.MedicinesHelper;
 import com.example.bluejack_pharmacy_final_mcs.database.TransactionsHelper;
 import com.example.bluejack_pharmacy_final_mcs.model.Medic;
 import com.example.bluejack_pharmacy_final_mcs.model.Transaction;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -41,7 +38,6 @@ public class MedicDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_medic_detail);
-
         medicImg = findViewById(R.id.medic_im);
         medicNameTv = findViewById(R.id.name_medic_tv);
         medicManufacturerTv = findViewById(R.id.manufacture_medic_tv);
@@ -50,7 +46,6 @@ public class MedicDetailActivity extends AppCompatActivity {
         medicQtyTv = findViewById(R.id.qty_medic_tv);
         medicQtyEt = findViewById(R.id.qty_medic_et);
         insertBtn = findViewById(R.id.insert_btn);
-
         sharedPreferences = getSharedPreferences("User", MODE_PRIVATE);
         userId = sharedPreferences.getInt("UserID", 0);
         medicId = getIntent().getIntExtra("MedicineID", 0);

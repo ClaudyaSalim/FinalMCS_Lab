@@ -1,7 +1,6 @@
 package com.example.bluejack_pharmacy_final_mcs;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,15 +8,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.bluejack_pharmacy_final_mcs.database.MedicinesHelper;
 import com.example.bluejack_pharmacy_final_mcs.database.TransactionsHelper;
 import com.example.bluejack_pharmacy_final_mcs.model.Medic;
 import com.example.bluejack_pharmacy_final_mcs.model.Transaction;
+import com.example.bluejack_pharmacy_final_mcs.model.User;
 
 public class UpdateTransactionActivity extends AppCompatActivity {
 
-//    User user;
+    User user;
     Transaction transaction;
     TextView date, medicName, medicPrice;
     EditText qtyEt;
