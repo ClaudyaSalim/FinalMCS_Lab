@@ -148,9 +148,6 @@ public class HomeFragment extends Fragment {
                         medics = medicinesHelper.getAllMedics();
                         setMedicRv(homeView, context);
                     }
-
-                    private void insertMedic(Medic medic) {
-                    }
                 },
                 new Response.ErrorListener() {
                     @Override
