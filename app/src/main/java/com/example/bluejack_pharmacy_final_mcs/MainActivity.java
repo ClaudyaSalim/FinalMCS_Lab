@@ -61,24 +61,22 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "You're logged in!", Toast.LENGTH_SHORT).show();
 
             // intent ke OTP + cek verified
-            Intent toHome = new Intent(this, HomeActivity.class);
-            startActivity(toHome);
 
-            // di comment dulu soalnya OTP belum bisa
-//            Intent intent = new Intent(this, otp.class);
-//            startActivity(intent);
-            finish();
+            if(currUser.isVerified()){
+                Intent toHome = new Intent(this, HomeActivity.class);
+                startActivity(toHome);
+                finish();
+            }
+            else {
+                Intent intent = new Intent(this, OtpActivity.class);
+                startActivity(intent);
+                finish();
+            }
 
-            // codingan kemaren
-//            Intent toHome = new Intent(this, HomeActivity.class);
-//            toHome.putExtra("User Database", dbUser);
-//            toHome.putExtra("Logged User", currUser);
-//            startActivity(toHome);
         });
 
         navRegisBtn.setOnClickListener(e-> {
             Intent toRegis = new Intent(this, RegisterActivity.class);
-//            toRegis.putExtra("User Database", dbUser);
             startActivity(toRegis);
         });
 

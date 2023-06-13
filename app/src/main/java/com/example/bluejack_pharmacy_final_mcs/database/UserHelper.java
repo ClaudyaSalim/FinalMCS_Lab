@@ -87,4 +87,8 @@ public class UserHelper {
         db.insert("Users", null, values);
         close();
     }
+
+    public void updateUserVerified(User user){
+
+    }
 }

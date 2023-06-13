@@ -70,11 +70,8 @@ public class RegisterActivity extends AppCompatActivity {
             editor.apply();
 
             // intent ke otp
-            Intent toHome = new Intent(this, HomeActivity.class);
-            startActivity(toHome);
-            // dicomment dulu soalnya OTP belum bisa
-//            Intent intent = new Intent(this, otp.class);
-//            startActivity(intent);
+            Intent intent = new Intent(this, OtpActivity.class);
+            startActivity(intent);
             finish();
         });
 
@@ -113,12 +110,12 @@ public class RegisterActivity extends AppCompatActivity {
     public void printAll(){
         users = userHelper.getAllUsers();
         for (User user: users) {
-            Log.e("User", String.valueOf(user.getId()));
-            Log.e("User", user.getName());
-            Log.e("User", user.getEmail());
-            Log.e("User", user.getPhone());
-            Log.e("User", user.getPass());
-            Log.e("User", String.valueOf(user.isVerified()));
+            Log.d("User", String.valueOf(user.getId()));
+            Log.d("User", user.getName());
+            Log.d("User", user.getEmail());
+            Log.d("User", user.getPhone());
+            Log.d("User", user.getPass());
+            Log.d("User", String.valueOf(user.isVerified()));
         }
     }
 }
